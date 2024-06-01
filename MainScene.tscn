@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://mpgpv5hfatnb"]
+[gd_scene load_steps=16 format=3 uid="uid://mpgpv5hfatnb"]
 
 [ext_resource type="Script" path="res://MainScene.gd" id="1_hhspl"]
 [ext_resource type="PackedScene" uid="uid://c04nnsbbqaf0m" path="res://player_character.tscn" id="1_r5xdh"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cesox4jmpvwua" path="res://Sprites/Walk.png" id="3_ly0jk"]
 [ext_resource type="PackedScene" path="res://PLAAAT.tscn" id="5_5tv4a"]
 [ext_resource type="AudioStream" uid="uid://cpn148oljc1nl" path="res://Sounds/character-restart.wav" id="7_6lfjb"]
+[ext_resource type="AudioStream" uid="uid://dcsxor18ojnfh" path="res://Sounds/character-falling.wav" id="8_na7u1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mr1xr"]
 size = Vector2(127.216, 20)
@@ -43,6 +44,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_5rnsi"]
 radius = 27.7308
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c5o2m"]
+size = Vector2(86.3676, 53)
+
 [node name="Node2D" type="Node2D"]
 position = Vector2(349, 209)
 script = ExtResource("1_hhspl")
@@ -64,7 +68,7 @@ shape = SubResource("RectangleShape2D_mr1xr")
 texture = ExtResource("2_f7xs3")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
-position = Vector2(827, 272)
+position = Vector2(1127, 272)
 scale = Vector2(1, 11)
 collision_layer = 2
 collision_mask = 3
@@ -101,8 +105,20 @@ shape = SubResource("CircleShape2D_5rnsi")
 [node name="restart" type="AudioStreamPlayer2D" parent="WinCondition"]
 stream = ExtResource("7_6lfjb")
 
+[node name="LoseCondition" type="Area2D" parent="."]
+position = Vector2(261, 493)
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LoseCondition"]
+position = Vector2(212.5, 177.5)
+scale = Vector2(22.96, 1)
+shape = SubResource("RectangleShape2D_c5o2m")
+
+[node name="death" type="AudioStreamPlayer2D" parent="LoseCondition"]
+stream = ExtResource("8_na7u1")
+
 [node name="Start" type="Node2D" parent="."]
 position = Vector2(-277, 243)
 
-[connection signal="area_entered" from="WinCondition" to="." method="_on_win_condition_area_entered"]
 [connection signal="body_shape_entered" from="WinCondition" to="." method="_on_win_condition_body_shape_entered"]
+[connection signal="body_shape_entered" from="LoseCondition" to="." method="_on_lose_condition_body_shape_entered"]
