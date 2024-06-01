@@ -1,3 +1,14 @@
-[gd_scene format=3 uid="uid://mpgpv5hfatnb"]
+[gd_scene load_steps=2 format=3 uid="uid://mpgpv5hfatnb"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_jpnpw"]
+b = Vector2(65, 0)
 
 [node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 1)
+shape = SubResource("SegmentShape2D_jpnpw")
