@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://mpgpv5hfatnb"]
+[gd_scene load_steps=13 format=3 uid="uid://mpgpv5hfatnb"]
 
 [ext_resource type="Script" path="res://MainScene.gd" id="1_hhspl"]
 [ext_resource type="PackedScene" uid="uid://c04nnsbbqaf0m" path="res://player_character.tscn" id="1_r5xdh"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://57ooe4vcgjno" path="res://Platform.tscn" id="3_0yrl8"]
 [ext_resource type="Texture2D" uid="uid://cesox4jmpvwua" path="res://Sprites/Walk.png" id="3_ly0jk"]
 [ext_resource type="PackedScene" path="res://PLAAAT.tscn" id="5_5tv4a"]
-[ext_resource type="AudioStream" uid="uid://cpn148oljc1nl" path="res://Sounds/character-restart.wav" id="7_6lfjb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mr1xr"]
 size = Vector2(127.216, 20)
@@ -79,7 +78,6 @@ texture = ExtResource("2_f7xs3")
 
 [node name="PlayerCharacter" parent="." instance=ExtResource("1_r5xdh")]
 position = Vector2(81, 31)
-collision_mask = 14
 
 [node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="PlayerCharacter"]
 sprite_frames = SubResource("SpriteFrames_rbwrw")
@@ -93,16 +91,10 @@ position = Vector2(293, 205)
 
 [node name="WinCondition" type="Area2D" parent="."]
 position = Vector2(581, 162)
-collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WinCondition"]
 shape = SubResource("CircleShape2D_5rnsi")
 
-[node name="restart" type="AudioStreamPlayer2D" parent="WinCondition"]
-stream = ExtResource("7_6lfjb")
-
 [node name="Start" type="Node2D" parent="."]
-position = Vector2(-277, 243)
 
 [connection signal="area_entered" from="WinCondition" to="." method="_on_win_condition_area_entered"]
-[connection signal="body_shape_entered" from="WinCondition" to="." method="_on_win_condition_body_shape_entered"]
