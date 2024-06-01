@@ -1,17 +1,66 @@
-[gd_scene load_steps=3 format=3 uid="uid://7kistu4s4qu7"]
+[gd_scene load_steps=9 format=3 uid="uid://7kistu4s4qu7"]
 
-[ext_resource type="Texture2D" uid="uid://7m3mjyoh43bg" path="res://Sprites/MoreSprites - Copy.png" id="1_v1fou"]
+[ext_resource type="Texture2D" uid="uid://dvufxe1i3rap1" path="res://Sprites/Crumble1.png" id="1_ious3"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_s4ygn"]
-size = Vector2(88, 11)
+[sub_resource type="AtlasTexture" id="AtlasTexture_3xnxm"]
+atlas = ExtResource("1_ious3")
+region = Rect2(0, 64, 95, 32)
 
-[node name="Platform" type="AnimatableBody2D"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pgt7m"]
+atlas = ExtResource("1_ious3")
+region = Rect2(0, 96, 95, 32)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_v1fou")
-region_enabled = true
-region_rect = Rect2(4, 73, 88, 11)
+[sub_resource type="AtlasTexture" id="AtlasTexture_r3nxv"]
+atlas = ExtResource("1_ious3")
+region = Rect2(0, 128, 95, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_61j2d"]
+atlas = ExtResource("1_ious3")
+region = Rect2(0, 160, 95, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wl7aw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3xnxm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pgt7m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r3nxv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_61j2d")
+}],
+"loop": true,
+"name": &"Crumble",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qqu8r"]
+size = Vector2(89, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vv7bc"]
+size = Vector2(89, 2)
+
+[node name="Platform" type="Area2D"]
+collision_layer = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_wl7aw")
+animation = &"Crumble"
+frame = 2
+frame_progress = 0.770784
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 0.5)
-shape = SubResource("RectangleShape2D_s4ygn")
+position = Vector2(0.5, -1)
+shape = SubResource("RectangleShape2D_qqu8r")
+
+[node name="CollisionAnim" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -8)
+shape = SubResource("RectangleShape2D_vv7bc")
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
