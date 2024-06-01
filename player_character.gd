@@ -14,6 +14,19 @@ const wall_jump_pushback = 700
 const wall_slide_gravity = 100
 var is_wall_sliding = false
 
+var sounds = []
+@onready var audio = $SFX/JumpSound
+
+
+func _ready():
+	sounds.append(load("res://Sounds/jump-1.wav"))
+	sounds.append(load("res://Sounds/jump-2.wav"))
+	sounds.append(load("res://Sounds/jump-3.wav"))
+	sounds.append(load("res://Sounds/jump-4.wav"))
+	
+	randomize()
+
+
 func _physics_process(delta):
 	var input_dir: Vector2 = input()
 	
@@ -44,6 +57,7 @@ func input() -> Vector2:
 func jump():
 	if Input.is_action_just_pressed("Jump"):
 		if is_on_floor():
+			_play_random_jump()
 			velocity.y = jump_power
 		elif is_on_wall_only():
 			velocity = Vector2(get_wall_normal().x * wall_jump_pushback, jump_power)
@@ -61,19 +75,10 @@ func jump():
 func wall_slide(delta):
 	if is_on_wall_only() and Input.get_axis("ui_left", "ui_right"):  
 		velocity.y = min(velocity.y, wall_slide_gravity)
-	#if is_on_wall() and !is_on_floor():
-		#if Input.is_action_pressed("Left") or Input.is_action_pressed("Right"):
-			#is_wall_sliding = true
-		#else:
-			#is_wall_sliding = false
-	#else:
-		#is_wall_sliding = false
-	#
-	#if is_wall_sliding:
-		#velocity.y += (wall_slide_gravity * delta)
-		#velocity.y = min(velocity.y, wall_slide_gravity)
-	#
 	
-	
-	
-	
+
+func _play_random_jump():
+	var sound_index = randi() % 4
+	var sound = sounds[sound_index]
+	audio.stream = sound
+	audio.play()

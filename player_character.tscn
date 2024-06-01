@@ -1,12 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://c04nnsbbqaf0m"]
+[gd_scene load_steps=6 format=3 uid="uid://c04nnsbbqaf0m"]
 
 [ext_resource type="Script" path="res://player_character.gd" id="1_h65w7"]
 [ext_resource type="Texture2D" uid="uid://ciuanqtjhvsx3" path="res://icon.svg" id="2_4oo5l"]
+[ext_resource type="AudioStream" uid="uid://ccw7m86igdi3h" path="res://Sounds/jump-1.wav" id="3_6nv7l"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kssex"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_np2y1"]
-height = 140.0
+radius = 8.98876
+height = 130.0
 
 [node name="PlayerCharacter" type="CharacterBody2D"]
 collision_mask = 6
@@ -22,16 +24,7 @@ shape = SubResource("CapsuleShape2D_np2y1")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_4oo5l")
 
-[node name="RightWall" type="RayCast2D" parent="."]
-position = Vector2(57, 0)
-rotation = -1.5708
-collision_mask = 4
-collide_with_areas = true
-collide_with_bodies = false
+[node name="SFX" type="Node2D" parent="."]
 
-[node name="LeftWall" type="RayCast2D" parent="."]
-position = Vector2(-57, 0)
-rotation = 1.5708
-collision_mask = 4
-collide_with_areas = true
-collide_with_bodies = false
+[node name="JumpSound" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("3_6nv7l")
