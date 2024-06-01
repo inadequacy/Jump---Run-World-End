@@ -28,3 +28,5 @@ texture = ExtResource("2_4oo5l")
 
 [node name="JumpSound" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource("3_6nv7l")
+
+[node name="Camera2D" type="Camera2D" parent="."]
