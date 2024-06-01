@@ -1,48 +1,42 @@
-[gd_scene load_steps=8 format=3 uid="uid://mpgpv5hfatnb"]
+[gd_scene load_steps=11 format=3 uid="uid://mpgpv5hfatnb"]
 
 [ext_resource type="PackedScene" path="res://player_character.tscn" id="1_r5xdh"]
 [ext_resource type="Texture2D" uid="uid://ciuanqtjhvsx3" path="res://icon.svg" id="2_f7xs3"]
 [ext_resource type="PackedScene" uid="uid://7kistu4s4qu7" path="res://Platform.tscn" id="3_0yrl8"]
+[ext_resource type="Texture2D" uid="uid://cesox4jmpvwua" path="res://Sprites/Walk.png" id="3_ly0jk"]
+[ext_resource type="PackedScene" uid="uid://djwyjx8wakfv1" path="res://PLAAAT.tscn" id="5_5tv4a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mr1xr"]
 size = Vector2(127.216, 20)
 
-[sub_resource type="Animation" id="Animation_2l6i3"]
-resource_name = "Crumble"
-loop_mode = 2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(-164, 0)]
-}
+[sub_resource type="AtlasTexture" id="AtlasTexture_mnexl"]
+atlas = ExtResource("3_ly0jk")
+region = Rect2(96, 128, 32, 32)
 
-[sub_resource type="Animation" id="Animation_33u4y"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
+[sub_resource type="AtlasTexture" id="AtlasTexture_oyhm6"]
+atlas = ExtResource("3_ly0jk")
+region = Rect2(128, 128, 32, 32)
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_3emkb"]
-_data = {
-"Crumble": SubResource("Animation_2l6i3"),
-"RESET": SubResource("Animation_33u4y")
-}
+[sub_resource type="AtlasTexture" id="AtlasTexture_o7hwi"]
+atlas = ExtResource("3_ly0jk")
+region = Rect2(160, 128, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rbwrw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mnexl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oyhm6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o7hwi")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Node2D" type="Node2D"]
 position = Vector2(10, 5)
@@ -78,11 +72,14 @@ shape = SubResource("RectangleShape2D_mr1xr")
 texture = ExtResource("2_f7xs3")
 
 [node name="PlayerCharacter" parent="." instance=ExtResource("1_r5xdh")]
-position = Vector2(148, 0)
+position = Vector2(81, 31)
 
-[node name="Platform" parent="." instance=ExtResource("3_0yrl8")]
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="PlayerCharacter"]
+sprite_frames = SubResource("SpriteFrames_rbwrw")
+frame_progress = 0.687826
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Platform"]
-libraries = {
-"": SubResource("AnimationLibrary_3emkb")
-}
+[node name="Platform2" parent="." instance=ExtResource("3_0yrl8")]
+position = Vector2(307, 252)
+
+[node name="PLAAAAAT" parent="." instance=ExtResource("5_5tv4a")]
+position = Vector2(293, 205)
