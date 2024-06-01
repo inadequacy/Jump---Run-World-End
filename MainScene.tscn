@@ -1,12 +1,51 @@
-[gd_scene load_steps=4 format=3 uid="uid://mpgpv5hfatnb"]
+[gd_scene load_steps=8 format=3 uid="uid://mpgpv5hfatnb"]
 
-[ext_resource type="PackedScene" uid="uid://c04nnsbbqaf0m" path="res://player_character.tscn" id="1_r5xdh"]
+[ext_resource type="PackedScene" path="res://player_character.tscn" id="1_r5xdh"]
 [ext_resource type="Texture2D" uid="uid://ciuanqtjhvsx3" path="res://icon.svg" id="2_f7xs3"]
+[ext_resource type="PackedScene" uid="uid://7kistu4s4qu7" path="res://Platform.tscn" id="3_0yrl8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mr1xr"]
 size = Vector2(127.216, 20)
 
+[sub_resource type="Animation" id="Animation_2l6i3"]
+resource_name = "Crumble"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-164, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_33u4y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3emkb"]
+_data = {
+"Crumble": SubResource("Animation_2l6i3"),
+"RESET": SubResource("Animation_33u4y")
+}
+
 [node name="Node2D" type="Node2D"]
+position = Vector2(10, 5)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
@@ -40,3 +79,10 @@ texture = ExtResource("2_f7xs3")
 
 [node name="PlayerCharacter" parent="." instance=ExtResource("1_r5xdh")]
 position = Vector2(148, 0)
+
+[node name="Platform" parent="." instance=ExtResource("3_0yrl8")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Platform"]
+libraries = {
+"": SubResource("AnimationLibrary_3emkb")
+}
