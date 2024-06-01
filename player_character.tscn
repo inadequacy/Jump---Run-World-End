@@ -6,6 +6,7 @@
 [sub_resource type="SpriteFrames" id="SpriteFrames_kssex"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_np2y1"]
+height = 140.0
 
 [node name="PlayerCharacter" type="CharacterBody2D"]
 collision_mask = 2
@@ -15,6 +16,7 @@ script = ExtResource("1_h65w7")
 sprite_frames = SubResource("SpriteFrames_kssex")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(7.12, 1)
 shape = SubResource("CapsuleShape2D_np2y1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
